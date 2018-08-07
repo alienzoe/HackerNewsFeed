@@ -1,0 +1,36 @@
+# import * from './generated/prisma.graphql';
+
+type Query {
+  feed(filter: String, skip: Int, first: Int, orderBy: LinkOrderByInput): Feed
+  users: [User!]!
+}
+
+type Mutation {
+  post(url: String!, description: String!): Link!
+  signup(email: String!, password: String!, name: String!): AuthPayload
+  login(email: String!, password: String!): AuthPayload
+  vote(linkId: ID!): Vote
+}
+
+type Subscription {
+  newLink: LinkSubscriptionPayload
+  newVote: VoteSubscriptionPayload
+}
+
+type AuthPayload {
+  token: String
+  user: User
+}
+
+type User {
+  id: ID!
+  age: Int!
+  name: String!
+  email: String!
+  links: [Link!]!
+}
+
+type Feed {
+  links: [Link!]!
+  count: Int!
+}
